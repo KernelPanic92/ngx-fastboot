@@ -45,8 +45,6 @@ To use **ngx-fastboot**, import the `fast` function and call it with your Angula
 
 ### Example
 
-
-
 #### Before
 
 ```typescript
@@ -87,6 +85,87 @@ fast(bootstrapApplication, AppComponent, {
 }).catch(error => {
   console.error('Error bootstrapping the app', error);
 });
+```
+
+#### Provider example
+
+In the following example, we demonstrate how to define and export an array of providers that include both Provider and EnvironmentProviders. This array can be used with ngx-fastboot to dynamically load and resolve these providers during application bootstrap, optimizing the initial load performance.
+
+```typescript
+import { provideHttpClient } from '@angular/common/http';
+import { EnvironmentProviders, Provider, provideZoneChangeDetection } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+export default [
+  provideHttpClient(),
+  ReactiveFormsModule,
+  provideZoneChangeDetection({ eventCoalescing: true }),
+] satisfies Array<Provider | EnvironmentProviders>;
+```
+
+### Sentry Integration Example
+This example shows how to integrate Sentry with ngx-fastboot for error monitoring and performance tracing in your Angular application.
+
+sentry.config.ts
+```typescript
+import { APP_INITIALIZER, EnvironmentProviders, ErrorHandler, Provider } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  browserTracingIntegration,
+  createErrorHandler,
+  init,
+  replayIntegration,
+  TraceService,
+} from '@sentry/angular-ivy';
+
+export function initSentryConfig() {
+  init({
+    dsn: '<your-dsn>',
+    integrations: [browserTracingIntegration(), replayIntegration()],
+    ...etc
+  });
+  console.info('Sentry initialized.');
+}
+
+export default [
+  {
+    provide: ErrorHandler,
+    useValue: createErrorHandler({
+      showDialog: false,
+      logErrors: true,
+    }),
+  },
+  {
+    provide: TraceService,
+    deps: [Router],
+  },
+  {
+    provide: APP_INITIALIZER,
+    useFactory: () => () => {},
+    deps: [TraceService],
+    multi: true,
+  },
+] satisfies Array<Provider | EnvironmentProviders>;
+```
+
+main.ts
+```typescript
+import { AppComponent } from './app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { fast } from 'ngx-fastboot';
+
+fast(bootstrapApplication, AppComponent, {
+  providers: [
+    () => import('./app/configs/sentry.config'),
+  ],
+})
+  .then(async () => {
+    return import('./app/configs/sentry.config').then((config) => config.initSentryConfig());
+  })
+  .catch((err) =>
+    console.error(err),
+  );
+
 ```
 
 ## API
