@@ -1,5 +1,6 @@
 # ngx-fastboot
 
+[![bundlephobia](https://badgen.net/bundlephobia/minzip/ngx-fastboot)](https://bundlephobia.com/result?p=ngx-fastboot)
 [![Semantic Release](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/KernelPanic92/ngx-fastboot/release.yml?branch=main)](https://github.com/KernelPanic92/ngx-fastboot/actions)
 [![Coverage Status](https://coveralls.io/repos/github/KernelPanic92/ngx-fastboot/badge.svg?branch=main)](https://coveralls.io/github/KernelPanic92/ngx-fastboot?branch=main)
