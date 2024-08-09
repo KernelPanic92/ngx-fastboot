@@ -1,22 +1,29 @@
+/* eslint-disable max-lines-per-function */
 import { resolveProvider } from './resolve-provider';
 import { AngularProvider, FastProvider } from './types';
 
 describe('resolveProvider', () => {
   it('should return the provider as is if it is an array', async () => {
-    const provider: AngularProvider[] = [{ provide: 'test', useValue: 'value' }];
-    const exprected: AngularProvider[] = [{ provide: 'test', useValue: 'value' }];
-    
+    const provider: AngularProvider[] = [
+      { provide: 'test', useValue: 'value' },
+    ];
+    const exprected: AngularProvider[] = [
+      { provide: 'test', useValue: 'value' },
+    ];
+
     const actual = await resolveProvider(provider);
-    
+
     expect(actual).toEqual(exprected);
   });
 
   it('should return the provider in an array if it is not a function', async () => {
     const provider: AngularProvider = { provide: 'test', useValue: 'value' };
-    const expected: Array<AngularProvider> = [{ provide: 'test', useValue: 'value' }];
-    
+    const expected: Array<AngularProvider> = [
+      { provide: 'test', useValue: 'value' },
+    ];
+
     const actual = await resolveProvider(provider);
-    
+
     expect(actual).toEqual(expected);
   });
 
@@ -26,16 +33,19 @@ describe('resolveProvider', () => {
     const expected: FastProvider = [MyClass];
 
     const actual = await resolveProvider(provider);
-    
+
     expect(actual).toEqual(expected);
   });
 
   it('should load and return the module if it is a function and not a TypeProvider', async () => {
-    const moduleProvider: FastProvider = async () => ({ provide: 'test', useValue: 'value' });
+    const moduleProvider: FastProvider = async () => ({
+      provide: 'test',
+      useValue: 'value',
+    });
     const expected: AngularProvider = [{ provide: 'test', useValue: 'value' }];
 
     const result = await resolveProvider(moduleProvider);
-    
+
     expect(result).toEqual(expected);
   });
 
@@ -50,7 +60,7 @@ describe('resolveProvider', () => {
     ];
 
     const result = await resolveProvider(moduleProvider);
-    
+
     expect(result).toEqual(expected);
   });
 });

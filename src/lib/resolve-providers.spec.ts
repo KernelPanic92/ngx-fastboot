@@ -1,6 +1,6 @@
+/* eslint-disable max-lines-per-function */
 import { resolveProviders } from './resolve-providers';
-import { AngularProvider, FastProvider } from './types';
-
+import { FastProvider } from './types';
 
 describe('resolveProviders', () => {
   it('should resolve multiple providers correctly', async () => {
@@ -8,7 +8,7 @@ describe('resolveProviders', () => {
       { provide: 'test1', useValue: 'value1' },
       { provide: 'test2', useValue: 'value2' },
     ];
-  
+
     const expected: Array<FastProvider> = [
       { provide: 'test1', useValue: 'value1' },
       { provide: 'test2', useValue: 'value2' },
@@ -25,9 +25,9 @@ describe('resolveProviders', () => {
       async () => [
         { provide: 'test2', useValue: 'value2' },
         { provide: 'test3', useValue: 'value3' },
-      ]
+      ],
     ];
-  
+
     const expected: Array<FastProvider> = [
       { provide: 'test1', useValue: 'value1' },
       { provide: 'test2', useValue: 'value2' },
@@ -51,6 +51,8 @@ describe('resolveProviders', () => {
       throw new Error('Test error');
     };
 
-    await expect(resolveProviders([provider1, provider2])).rejects.toThrow('Test error');
+    await expect(resolveProviders([provider1, provider2])).rejects.toThrow(
+      'Test error',
+    );
   });
 });

@@ -1,7 +1,8 @@
-
-import type { bootstrapApplication } from '@angular/platform-browser';
-import { fast } from './fast';
+/* eslint-disable max-lines-per-function */
 import { ApplicationConfig, Type } from '@angular/core';
+import type { bootstrapApplication } from '@angular/platform-browser';
+
+import { fast } from './fast';
 import { FastApplicationConfig } from './types';
 
 describe('fast', () => {
@@ -20,7 +21,7 @@ describe('fast', () => {
     };
 
     const expected: ApplicationConfig = {
-        providers:[
+      providers: [
         { provide: 'test1', useValue: 'value1' },
         { provide: 'test2', useValue: 'value2' },
       ],
@@ -35,7 +36,7 @@ describe('fast', () => {
     const rootComponent: Type<unknown> = class {};
 
     const expected: ApplicationConfig = {
-        providers: [],
+      providers: [],
     };
 
     await fast(bootstrap, rootComponent);
@@ -53,7 +54,7 @@ describe('fast', () => {
     };
 
     const actual = fast(bootstrap, rootComponent, options);
-    
+
     expect(actual).rejects.toThrow('Test error');
   });
 });
