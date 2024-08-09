@@ -5,7 +5,6 @@
   "description": "ngx-fastboot is an Angular library designed to dynamically load configuration settings at runtime, optimizing application startup performance by offloading configurations to a separate compilation chunk.",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --silent --coverage  --passWithNoTests",
     "build": "tsup",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",

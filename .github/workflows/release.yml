@@ -33,7 +33,13 @@ jobs:
         run: pnpm run lint
 
       - name: Test project
-        run: pnpm run test:coverage
+        run: pnpm run test
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: ./coverage
 
       - name: Release
         env:
