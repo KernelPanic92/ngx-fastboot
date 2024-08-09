@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.1.0...v1.2.0) (2024-08-09)
+
+
+### Features
+
+* **README:** added more examples ([73784dc](https://github.com/KernelPanic92/ngx-fastboot/commit/73784dcc6a43a922cd3d56a042d710dc111ce38c))
+
 # [1.1.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.0.0...v1.1.0) (2024-08-09)
 
 
