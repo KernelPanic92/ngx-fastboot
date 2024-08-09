@@ -1,6 +1,6 @@
 {
   "name": "ngx-fastboot",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "sideEffects": false,
   "description": "ngx-fastboot is an Angular library designed to dynamically load configuration settings at runtime, optimizing application startup performance by offloading configurations to a separate compilation chunk.",
   "scripts": {
