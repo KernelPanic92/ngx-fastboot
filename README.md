@@ -1,7 +1,7 @@
 # ngx-fastboot
 
 [![Semantic Release](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/KernelPanic92/ngx-fastboot/ci.yml?branch=main)](https://github.com/KernelPanic92/ngx-fastboot/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/KernelPanic92/ngx-fastboot/release.yml?branch=main)](https://github.com/KernelPanic92/ngx-fastboot/actions)
 [![Coverage Status](https://coveralls.io/repos/github/KernelPanic92/ngx-fastboot/badge.svg?branch=main)](https://coveralls.io/github/KernelPanic92/ngx-fastboot?branch=main)
 [![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?logo=angular&logoColor=white)](https://angular.io/)
 [![Tsup](https://img.shields.io/badge/tsup-fast--transpiler-brightgreen)](https://github.com/egoist/tsup)
