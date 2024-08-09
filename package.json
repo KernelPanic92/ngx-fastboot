@@ -33,6 +33,7 @@
     "performance",
     "fastboot"
   ],
+  "readme": "README.md",
   "author": "Iacopo Ciao",
   "license": "MIT",
   "publishConfig": {
