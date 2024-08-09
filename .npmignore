@@ -1,0 +1,13 @@
+.idea/
+.github
+.gitignore
+.prettierrc.json
+.DS_Store
+CONTRIBUTE.md
+
+# configuration
+renovate.json
+tsconfig.json
+/.vscode
+.eslintrc.json
+.eslintignore
