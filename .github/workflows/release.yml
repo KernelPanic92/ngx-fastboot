@@ -35,11 +35,10 @@ jobs:
       - name: Test project
         run: pnpm run test
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-report
-          path: ./coverage
+      - name: Coverage
+        uses: coverallsapp/github-action@master
+        env:
+          github-token: ${{ secrets.GH_TOKEN }}
 
       - name: Release
         env:
