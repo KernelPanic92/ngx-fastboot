@@ -1,5 +1,6 @@
 .idea/
 .github
+.husky
 .gitignore
 .prettierrc.json
 .DS_Store
