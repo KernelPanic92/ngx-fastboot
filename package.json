@@ -47,7 +47,7 @@
   "bugs": {
     "url": "https://github.com/KernelPanic92/ngx-fastboot/issues"
   },
-  "packageManager": "pnpm@9.1.2",
+  "packageManager": "pnpm@9.10.0",
   "peerDependencies": {
     "@angular/core": "^18.1.0",
     "@angular/platform-browser": "^18.1.0"
