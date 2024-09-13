@@ -48,6 +48,7 @@ To use **ngx-fastboot**, import the `fast` function and call it with your Angula
 
 #### Before
 
+`main.ts`
 ```typescript
 import { AppComponent } from './app.component';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -70,6 +71,7 @@ bootstrapApplication(AppComponent, {
 
 #### After
 
+`main.ts`
 ```typescript
 import { AppComponent } from './app.component';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -107,26 +109,15 @@ export default [
 ### Sentry Integration Example
 This example shows how to integrate Sentry with ngx-fastboot for error monitoring and performance tracing in your Angular application.
 
-sentry.config.ts
+`src/app/configs/sentry.config.ts`
 ```typescript
 import { APP_INITIALIZER, EnvironmentProviders, ErrorHandler, Provider } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  browserTracingIntegration,
   createErrorHandler,
   init,
-  replayIntegration,
   TraceService,
 } from '@sentry/angular-ivy';
-
-export function initSentryConfig() {
-  init({
-    dsn: '<your-dsn>',
-    integrations: [browserTracingIntegration(), replayIntegration()],
-    ...etc
-  });
-  console.info('Sentry initialized.');
-}
 
 export default [
   {
@@ -149,7 +140,25 @@ export default [
 ] satisfies Array<Provider | EnvironmentProviders>;
 ```
 
-main.ts
+`src/app/configs/sentry.init.ts`
+```typescript
+import {
+  browserTracingIntegration,
+  init,
+  replayIntegration,
+} from '@sentry/angular-ivy';
+
+export function initSentryConfig() {
+  init({
+    dsn: '<your-dsn>',
+    integrations: [browserTracingIntegration(), replayIntegration()],
+    ...etc
+  });
+  console.info('Sentry initialized.');
+}
+```
+
+`src/main.ts`
 ```typescript
 import { AppComponent } from './app.component';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -160,12 +169,11 @@ fast(bootstrapApplication, AppComponent, {
     () => import('./app/configs/sentry.config'),
   ],
 })
-  .then(async () => {
-    return import('./app/configs/sentry.config').then((config) => config.initSentryConfig());
-  })
-  .catch((err) =>
-    console.error(err),
-  );
+  .then(() => import('./app/configs/sentry.init')
+  .then((init) => init.initSentryConfig()))
+  .catch(error => {
+    console.error('Error bootstrapping the app', error);
+  });
 
 ```
 

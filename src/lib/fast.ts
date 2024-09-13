@@ -31,11 +31,10 @@ import { AngularProvider, FastApplicationConfig } from './types';
  *     MyProvider,
  *     () => import('./my-provider.module'),
  *   ]
- * }).then(appRef => {
- *   console.log('App is bootstrapped');
- * }).catch(error => {
+ * }).then(() => console.log('App is bootstrapped'))
+ *   .catch(error => {
  *     console.error('Error bootstrapping the app', error);
- * });
+ *   });
  * ```
  */
 export const fast = async (
