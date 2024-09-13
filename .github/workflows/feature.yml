@@ -1,0 +1,38 @@
+name: Release
+
+on: pull_request
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Setup Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.1.2 --activate
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build project
+        run: pnpm run build
+
+      - name: Lint project
+        run: pnpm run lint
+
+      - name: Test project
+        run: pnpm run test
+
+      - name: Coverage
+        uses: coverallsapp/github-action@master
+        env:
+          github-token: ${{ secrets.GH_TOKEN }}
