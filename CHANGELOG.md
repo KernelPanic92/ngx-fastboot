@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.2.1...v1.3.0) (2024-09-13)
+
+
+### Features
+
+* improved docs ([3fa66df](https://github.com/KernelPanic92/ngx-fastboot/commit/3fa66dfeeb8902f792d1db2d1c3e4bea683823af))
+
 ## [1.2.1](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.2.0...v1.2.1) (2024-08-09)
 
 
