@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.3.0...v1.4.0) (2024-10-14)
+
+
+### Features
+
+* added lazy root component ([37a7caf](https://github.com/KernelPanic92/ngx-fastboot/commit/37a7caf8ad208cd853cd4c4a5258335836922112))
+
 # [1.3.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.2.1...v1.3.0) (2024-09-13)
 
 
