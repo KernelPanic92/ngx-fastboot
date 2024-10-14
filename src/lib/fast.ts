@@ -1,8 +1,8 @@
-import { ApplicationConfig, ApplicationRef, Type } from '@angular/core';
+import { ApplicationConfig, ApplicationRef } from '@angular/core';
 import type { bootstrapApplication } from '@angular/platform-browser';
 
-import { resolveProviders } from './resolve-providers';
-import { AngularProvider, FastApplicationConfig } from './types';
+import { resolveDependencies } from './resolve-dependencies';
+import { FastApplicationConfig, FastComponent } from './types';
 
 /**
  * Dynamically loads the specified providers in the configuration and bootstraps an Angular application.
@@ -12,7 +12,8 @@ import { AngularProvider, FastApplicationConfig } from './types';
  * be loaded asynchronously. This function handles resolving these providers and passing them to the bootstrap method.
  *
  * @param bootstrap - The Angular application's bootstrap function (typically `bootstrapApplication`).
- * @param rootComponent - The root component of the application, which should be of type `Type<unknown>`.
+ * @param rootComponent - The root component of the application, which should be of type `FastComponent`
+ *                  (ie. Type<unknown> or lazy module that return this component).
  * @param options - (Optional) The application configuration, including the providers to be loaded. It should conform
  *                  to the `FastApplicationConfig` type. Providers can be `Provider`, `EnvironmentProviders`,
  *                  or lazy modules that return these providers.
@@ -39,16 +40,17 @@ import { AngularProvider, FastApplicationConfig } from './types';
  */
 export const fast = async (
   bootstrap: typeof bootstrapApplication,
-  rootComponent: Type<unknown>,
+  rootComponent: FastComponent,
   options?: FastApplicationConfig,
 ): Promise<ApplicationRef> => {
-  const resolvedProviders: Array<AngularProvider> = await resolveProviders(
+  const { component, providers } = await resolveDependencies(
+    rootComponent,
     options?.providers ?? [],
   );
   const nextOptions: ApplicationConfig = {
     ...options,
-    providers: resolvedProviders,
+    providers,
   };
 
-  return bootstrap(rootComponent, nextOptions);
+  return bootstrap(component, nextOptions);
 };

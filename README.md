@@ -90,20 +90,164 @@ fast(bootstrapApplication, AppComponent, {
 });
 ```
 
-#### Provider example
+### Providers
 
-In the following example, we demonstrate how to define and export an array of providers that include both Provider and EnvironmentProviders. This array can be used with ngx-fastboot to dynamically load and resolve these providers during application bootstrap, optimizing the initial load performance.
+`ngx-fastboot` provides great flexibility in how providers are loaded. Each element of the `providers` field can be either a **single provider** or an **array of providers**, depending on the needs of your application.
 
+You can specify these providers in three main ways:
+
+- **Static import**: The traditional method used during the application's bootstrap, where providers are imported and directly included at configuration time. This approach is simple but can increase the initial bundle size.
+
+- **Dynamic Named Import**: To reduce the bundle size, you can load providers dynamically using a named import. In this way, providers are only loaded when they are actually needed.
+
+- **Dynamic Default Import**: Similar to named import, but loads the provider or a group of providers using the default export of the module. This is useful when a module exports a single provider or an array of providers as a default value.
+
+#### Static Import
+
+`main.ts`
 ```typescript
-import { provideHttpClient } from '@angular/common/http';
-import { EnvironmentProviders, Provider, provideZoneChangeDetection } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { MyProvider } from 'providers/my-provider';
+import { OtherProvider } from 'providers/other-provider';
+import { fast } from 'ngx-fastboot';
 
+fast(bootstrapApplication, AppComponent, {
+  providers: [
+    MyProvider,
+    OtherProvider,
+  ]
+}).then(appRef => {
+  console.log('App is bootstrapped');
+}).catch(error => {
+  console.error('Error bootstrapping the app', error);
+});
+```
+
+#### Dynamic Named Import
+
+`providers/my-provider.ts`
+```typescript
+export const MyProvider: Provider = ....;
+```
+
+`providers/other-provider.ts`
+```typescript
+export const OtherProvider = [
+  provideHttpClient(),
+  ReactiveFormsModule,
+  provideZoneChangeDetection({ eventCoalescing: true }),
+] satisfies Array<Provider | EnvironmentProviders>;
+```
+
+`main.ts`
+```typescript
+import { AppComponent } from './app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { fast } from 'ngx-fastboot';
+
+fast(bootstrapApplication, AppComponent, {
+  providers: [
+    () => import('providers/my-provider').then((m) => m.MyProvider), // single
+    () => import('providers/other-provider').then((m) => m.OtherProvider), // array
+  ]
+}).then(appRef => {
+  console.log('App is bootstrapped');
+}).catch(error => {
+  console.error('Error bootstrapping the app', error);
+});
+```
+
+#### Dynamic Default Import
+`providers/my-provider.ts`
+```typescript
+const MyProvider: Provider = ....;
+export default MyProvider;
+```
+
+`providers/other-provider.ts`
+```typescript
 export default [
   provideHttpClient(),
   ReactiveFormsModule,
   provideZoneChangeDetection({ eventCoalescing: true }),
 ] satisfies Array<Provider | EnvironmentProviders>;
+```
+
+`main.ts`
+```typescript
+import { AppComponent } from './app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { fast } from 'ngx-fastboot';
+
+fast(bootstrapApplication, AppComponent, {
+  providers: [
+    () => import('providers/my-provider'), // single
+    () => import('providers/other-provider'), // array
+  ]
+}).then(appRef => {
+  console.log('App is bootstrapped');
+}).catch(error => {
+  console.error('Error bootstrapping the app', error);
+});
+```
+
+#### Full example
+
+`main.ts`
+```typescript
+import { AppComponent } from './app.component';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { MyStaticImportedProvider } from './providers/my-static-imported-provider';
+import { fast } from 'ngx-fastboot';
+
+fast(bootstrapApplication, AppComponent, {
+  providers: [
+    MyStaticImportedProvider,
+    () => import('providers/my-provider').then((m) => m.MyProvider),
+    () => import('providers/other-provider'),
+  ]
+}).then(appRef => {
+  console.log('App is bootstrapped');
+}).catch(error => {
+  console.error('Error bootstrapping the app', error);
+});
+```
+
+### RootComponent
+
+Similar to providers, you can manage the root component of the application both **statically** and **dynamically**. Dynamically loading the root component can help reduce the initial bundle size.
+
+#### Static Import
+
+The classic method to bootstrap the root component involves a static import:
+
+```typescript
+fast(bootstrapApplication, AppComponent, {
+  providers: [...]
+});
+```
+
+#### Dynamic Named Import
+To optimize bundle size, the root component can be loaded dynamically with a named import:
+
+```typescript
+fast(
+  bootstrapApplication, 
+  () => import('./app-component').then((m) => m.AppComponent), {
+  providers: [...]
+});
+```
+
+#### Dynamic Default Import
+Alternatively, you can use a dynamic default import if the root component is exported as the default from the module:
+
+```typescript
+fast(
+  bootstrapApplication, 
+  () => import('./app-component'), {
+  providers: [...]
+});
 ```
 
 ### Sentry Integration Example
@@ -186,7 +330,7 @@ Dynamically loads the specified providers in the configuration and bootstraps an
 #### Parameters
 
 - **`bootstrap`**: The Angular application's bootstrap function (typically `bootstrapApplication`).
-- **`rootComponent`**: The root component of the application, which should be of type `Type<unknown>`.
+- **`rootComponent`**: The root component of the application, which should be of type `FastComponent`.
 - **`options`**: (Optional) The application configuration, including the providers to be loaded. It should conform to the `FastApplicationConfig` type. Providers can be `Provider`, `EnvironmentProviders`, or lazy modules that return these providers.
 
 #### Returns
@@ -219,6 +363,18 @@ export type LazyModule<T> = () => Promise<T | { default: T }>;
 
 ```typescript
 export type AngularProvider = Provider | EnvironmentProviders;
+```
+
+### `FastComponent`
+
+```typescript
+export type FastComponent = Type<unknown> | LazyComponent;
+```
+
+### `LazyComponent`
+
+```typescript
+export type LazyComponent = LazyModule<Type<unknown>>;
 ```
 
 ## Contributing
