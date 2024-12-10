@@ -9,10 +9,10 @@ importers:
   .:
     dependencies:
       '@angular/core':
-        specifier: ^18.1.0
+        specifier: ^18.1.0 || ^19.0.0
         version: 18.1.4(rxjs@7.8.1)(zone.js@0.14.10)
       '@angular/platform-browser':
-        specifier: ^18.1.0
+        specifier: ^18.1.0 || ^19.0.0
         version: 18.1.4(@angular/common@18.1.4(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10))
     devDependencies:
       '@angular-eslint/builder':
@@ -6315,7 +6315,7 @@ snapshots:
   '@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10)':
     dependencies:
       rxjs: 7.8.1
-      tslib: 2.6.3
+      tslib: 2.8.0
       zone.js: 0.14.10
 
   '@angular/platform-browser-dynamic@18.1.4(@angular/common@18.1.4(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/compiler@18.1.4(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.1.4(@angular/common@18.1.4(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.1.4(rxjs@7.8.1)(zone.js@0.14.10)))':
@@ -12089,7 +12089,7 @@ snapshots:
   synckit@0.9.1:
     dependencies:
       '@pkgr/core': 0.1.1
-      tslib: 2.6.3
+      tslib: 2.8.0
 
   tapable@2.2.1: {}
 
