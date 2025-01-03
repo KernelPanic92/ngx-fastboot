@@ -63,11 +63,11 @@
     "@angular/platform-browser": "^19.0.0"
   },
   "devDependencies": {
-    "@angular-eslint/builder": "18.4.3",
-    "@angular-eslint/eslint-plugin": "18.4.3",
-    "@angular-eslint/eslint-plugin-template": "18.4.3",
-    "@angular-eslint/schematics": "18.4.3",
-    "@angular-eslint/template-parser": "18.4.3",
+    "@angular-eslint/builder": "19.0.2",
+    "@angular-eslint/eslint-plugin": "19.0.2",
+    "@angular-eslint/eslint-plugin-template": "19.0.2",
+    "@angular-eslint/schematics": "19.0.2",
+    "@angular-eslint/template-parser": "19.0.2",
     "@commitlint/cli": "19.6.1",
     "@commitlint/config-angular": "19.6.0",
     "@commitlint/config-conventional": "19.6.0",
