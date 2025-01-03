@@ -21,7 +21,6 @@ jobs:
       - name: Setup Corepack
         run: |
           corepack enable
-          corepack prepare pnpm@9.1.2 --activate
 
       - name: Install dependencies
         run: pnpm install
