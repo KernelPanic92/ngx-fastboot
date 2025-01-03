@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.4.0...v2.0.0) (2025-01-03)
+
+
+### chore
+
+* **deps:** update angular to 19 ([96527b2](https://github.com/KernelPanic92/ngx-fastboot/commit/96527b2a970cc4dea32a710f7cd81f83640aab43))
+
+
+### Features
+
+* added fastBootstrapApplication function ([82c8586](https://github.com/KernelPanic92/ngx-fastboot/commit/82c85866b91fc14b31a3acf9cbe5680ecfb00a9d))
+
+
+### BREAKING CHANGES
+
+* **deps:** angular 18 will no longer be supported
+
 # [1.4.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.3.0...v1.4.0) (2024-10-14)
 
 
