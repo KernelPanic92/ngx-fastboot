@@ -42,7 +42,7 @@ yarn add ngx-fastboot
 
 ## Usage
 
-To use **ngx-fastboot**, import the `fast` function and call it with your Angular application's `bootstrapApplication` function, root component, and configuration options.
+To use **ngx-fastboot**, import the `fastBootstrapApplication` function and call it as your Angular application's `bootstrapApplication` function.
 
 ### Example
 
@@ -54,7 +54,6 @@ import { AppComponent } from './app.component';
 import { bootstrapApplication } from '@angular/platform-browser';
 import provideMyDefaultExportFeatures from './default-export-features.config';
 import { provideMyOtherFeatures } from './my-other-features.config';
-import { fast } from 'ngx-fastboot';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -74,10 +73,9 @@ bootstrapApplication(AppComponent, {
 `main.ts`
 ```typescript
 import { AppComponent } from './app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { fast } from 'ngx-fastboot';
+import { fastBootstrapApplication } from 'ngx-fastboot';
 
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [
     MyProvider,
     () => import('./default-export-features.config'), // default export config
@@ -107,12 +105,11 @@ You can specify these providers in three main ways:
 `main.ts`
 ```typescript
 import { AppComponent } from './app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
 import { MyProvider } from 'providers/my-provider';
 import { OtherProvider } from 'providers/other-provider';
-import { fast } from 'ngx-fastboot';
+import { fastBootstrapApplication } from 'ngx-fastboot';
 
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [
     MyProvider,
     OtherProvider,
@@ -143,10 +140,9 @@ export const OtherProvider = [
 `main.ts`
 ```typescript
 import { AppComponent } from './app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { fast } from 'ngx-fastboot';
+import { fastBootstrapApplication } from 'ngx-fastboot';
 
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [
     () => import('providers/my-provider').then((m) => m.MyProvider), // single
     () => import('providers/other-provider').then((m) => m.OtherProvider), // array
@@ -177,10 +173,9 @@ export default [
 `main.ts`
 ```typescript
 import { AppComponent } from './app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { fast } from 'ngx-fastboot';
+import { fastBootstrapApplication } from 'ngx-fastboot';
 
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [
     () => import('providers/my-provider'), // single
     () => import('providers/other-provider'), // array
@@ -197,11 +192,10 @@ fast(bootstrapApplication, AppComponent, {
 `main.ts`
 ```typescript
 import { AppComponent } from './app.component';
-import { bootstrapApplication } from '@angular/platform-browser';
 import { MyStaticImportedProvider } from './providers/my-static-imported-provider';
-import { fast } from 'ngx-fastboot';
+import { fastBootstrapApplication } from 'ngx-fastboot';
 
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [
     MyStaticImportedProvider,
     () => import('providers/my-provider').then((m) => m.MyProvider),
@@ -223,7 +217,7 @@ Similar to providers, you can manage the root component of the application both 
 The classic method to bootstrap the root component involves a static import:
 
 ```typescript
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [...]
 });
 ```
@@ -232,8 +226,7 @@ fast(bootstrapApplication, AppComponent, {
 To optimize bundle size, the root component can be loaded dynamically with a named import:
 
 ```typescript
-fast(
-  bootstrapApplication, 
+fastBootstrapApplication(
   () => import('./app-component').then((m) => m.AppComponent), {
   providers: [...]
 });
@@ -243,8 +236,7 @@ fast(
 Alternatively, you can use a dynamic default import if the root component is exported as the default from the module:
 
 ```typescript
-fast(
-  bootstrapApplication, 
+fastBootstrapApplication(
   () => import('./app-component'), {
   providers: [...]
 });
@@ -308,7 +300,7 @@ import { AppComponent } from './app.component';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { fast } from 'ngx-fastboot';
 
-fast(bootstrapApplication, AppComponent, {
+fastBootstrapApplication(AppComponent, {
   providers: [
     () => import('./app/configs/sentry.config'),
   ],
@@ -323,13 +315,26 @@ fast(bootstrapApplication, AppComponent, {
 
 ## API
 
-### `fast`
+### `fastBootstrapApplication`
 
 Dynamically loads the specified providers in the configuration and bootstraps an Angular application.
 
 #### Parameters
 
-- **`bootstrap`**: The Angular application's bootstrap function (typically `bootstrapApplication`).
+- **`rootComponent`**: The root component of the application, which should be of type `FastComponent`.
+- **`options`**: (Optional) The application configuration, including the providers to be loaded. It should conform to the `FastApplicationConfig` type. Providers can be `Provider`, `EnvironmentProviders`, or lazy modules that return these providers.
+
+#### Returns
+
+A `Promise` that resolves to an `ApplicationRef` instance of the bootstrapped application. The bootstrap method is called with the root component and the updated configuration with the resolved providers.
+
+### `fast`
+
+Dynamically loads the specified providers in the configuration and bootstraps an Angular application passing a custom bootstrap function.
+
+#### Parameters
+
+- **`bootstrap`**: The bootstrap function (typically `bootstrapApplication`).
 - **`rootComponent`**: The root component of the application, which should be of type `FastComponent`.
 - **`options`**: (Optional) The application configuration, including the providers to be loaded. It should conform to the `FastApplicationConfig` type. Providers can be `Provider`, `EnvironmentProviders`, or lazy modules that return these providers.
 
