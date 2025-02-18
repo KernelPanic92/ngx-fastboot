@@ -1,13 +1,19 @@
 # ngx-fastboot
 
+<p align="center">
+  <img src="ngx-fastboot.png" alt="ngx-fastboot-logo" width="200px" height="200px"/>
+  <br/>
+  <em><b>ngx-fastboot</b> is a dynamic configuration loader for Angular applications. It optimizes the startup performance by loading configurations in a separate chunk during compilation.</em>
+</p>
+<br/>
+
+
 [![bundlephobia](https://badgen.net/bundlephobia/minzip/ngx-fastboot)](https://bundlephobia.com/result?p=ngx-fastboot)
 [![Semantic Release](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/KernelPanic92/ngx-fastboot/release.yml?branch=main)](https://github.com/KernelPanic92/ngx-fastboot/actions)
 [![Coverage Status](https://coveralls.io/repos/github/KernelPanic92/ngx-fastboot/badge.svg?branch=main)](https://coveralls.io/github/KernelPanic92/ngx-fastboot?branch=main)
 [![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?logo=angular&logoColor=white)](https://angular.io/)
 [![Tsup](https://img.shields.io/badge/tsup-fast--transpiler-brightgreen)](https://github.com/egoist/tsup)
-
-**ngx-fastboot** is a dynamic configuration loader for Angular applications. It optimizes the startup performance by loading configurations in a separate chunk during compilation.
 
 ## Why Use ngx-fastboot?
 Modern web applications often require a multitude of providers, which can increase the initial bundle size and slow down application startup. Splitting code into multiple chunks helps mitigate these issues by:
