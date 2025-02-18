@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v2.0.0...v2.1.0) (2025-02-18)
+
+
+### Features
+
+* **docs:** added ngx-fastboot logo ([e96bfbb](https://github.com/KernelPanic92/ngx-fastboot/commit/e96bfbbbd6762e2de6b4f76e0dd574ed3562e397))
+
 # [2.0.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v1.4.0...v2.0.0) (2025-01-03)
 
 
