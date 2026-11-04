@@ -1,5 +1,9 @@
+const { createCjsPreset } = require('jest-preset-angular/presets');
+
 module.exports = {
-  preset: "jest-preset-angular",
+  ...createCjsPreset({
+    testEnvironment: 'jest-preset-angular/environments/jest-jsdom-env',
+  }),
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov'],
@@ -10,10 +14,4 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/dist/'
   ],
-  globals: {
-    tsConfig: '<rootDir>/tsconfig.spec.json',
-  },
-  transform: {
-     '^.+\\.(ts|js|html)$': 'jest-preset-angular'
-  }
 }
