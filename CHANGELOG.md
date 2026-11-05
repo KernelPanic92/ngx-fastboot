@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v2.1.0...v2.2.0) (2026-11-05)
+
+
+### Features
+
+* support Angular 20, 21 and 22 ([d9f8928](https://github.com/KernelPanic92/ngx-fastboot/commit/d9f89283cc0d90dc12307686e037e5733664a155))
+
 # [2.1.0](https://github.com/KernelPanic92/ngx-fastboot/compare/v2.0.0...v2.1.0) (2025-02-18)
 
 
